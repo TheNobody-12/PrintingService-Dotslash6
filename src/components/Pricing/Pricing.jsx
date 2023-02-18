@@ -73,7 +73,7 @@ import React from "react";
 export default function Pricing() {
     return (
         <>
-            <div className="h-98 xl:mx-auto xl:container py-20 2xl:px-0 px-6">
+            <div className="h-98 xl:mx-auto xl:container p-20 ">
                 <div className="lg:flex items-center justify-between">
                     <div className=" lg:w-1/2 w-full">
                         <p className="text-base leading-4 text-gray-600">Choose as per need</p>
@@ -81,9 +81,7 @@ export default function Pricing() {
                             Our pricing plan
                         </h1>
                         <p role="contentinfo" className="text-base leading-5 mt-5 text-gray-600">
-
                         </p>
-
                     </div>
                     <div className="xl:w-1/2 lg:w-7/12 relative w-full lg:mt-0 mt-12 md:px-8" role="list">
                         <img src="https://i.ibb.co/0n6DSS3/bgimg.png" className="absolute w-full -ml-12 mt-24" alt="background circle images" />

@@ -8,8 +8,8 @@ export default function Navbar() {
     const { currentUser } = useContext(UserContext)
     const navigate = useNavigate()
     return (
-        <div>
-            <header class=" body-font  bg-[#ffffff]">
+        <div className="w-full">
+            <header class=" body-font  bg-[#cdd5e0] z-50">
                 <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
                     {
                         currentUser ?

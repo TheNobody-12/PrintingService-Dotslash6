@@ -1,28 +1,23 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { AiOutlineShop } from 'react-icons/ai'
 
 function Card({ shop }) {
   return (
-    <div class="w-full px-4 md:w-1/2 xl:w-1/4 custom_card m-3">
-      <div class="mb-10 overflow-hidden rounded-lg bg-white flex justify-center flex-col">
+    <div class="w-full p-4 md:w-1/2 xl:w-1/4 custom_card m-3">
+      <div class="mb-10 overflow-hidden rounded-lg bg-white flex justify-center flex-col ">
         <img
           src={shop.img}
           alt="image"
-          class="w-full h-64 object-cover object-center"
+          class="w-full h-56 object-cover object-center mb-7"
         />
-        <div class="text-center sm:p-9 xl:p-9">
-          <h3>
-            <a
-              href="javascript:void(0)"
-              class="text-dark hover:text-primary mb-4 block text-xl font-semibold sm:text-[22px] md:text-xl lg:text-[22px] xl:text-xl 2xl:text-[22px]"
-            >
-              {shop.name}
-            </a>
-          </h3>
-          <p class="text-body-color mb-7 text-base leading-relaxed">
+        <div class="text-center flex flex-col gap-2 ">
+            <h3 className='text-xl font-bold'> 
+              {shop.name}</h3>
+          <p class="text-body-color text-base leading-relaxed">
             {shop.address}
           </p>
-          <p class="text-body-color mb-7 text-base leading-relaxed">
+          <p class="text-body-color text-base leading-relaxed">
             {shop.phoneNo}
           </p>
           <Link

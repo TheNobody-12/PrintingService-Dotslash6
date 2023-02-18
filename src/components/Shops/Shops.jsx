@@ -39,7 +39,7 @@ export default function Shops() {
         <>
             <h2 class="text-center mb-4 mt-8 text-4xl tracking-tight font-extrabold text-gray-900 dark:">Available stores</h2>
             {loading == false ? (
-                <div id="shops" className="flex flex-wrap m-6 justify-center">
+                <div id="shops" className=" flex flex-wrap m-6 justify-center">
                     {shops.map((shop) => {
                         return <>
                             <Card shop={shop} />
