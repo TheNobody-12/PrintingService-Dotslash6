@@ -3,21 +3,22 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 export default function LogIn() {
-    const [user, setUser] = useState()
-    const navigate = useNavigate()
+  const [user, setUser] = useState()
+  const navigate = useNavigate()
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const auth = getAuth()
-        await signInWithEmailAndPassword(auth, user.email, user.password).then(
-            (userCredential) => {
-                navigate('/dashboard')
-            }).catch((error) => {
-                const errorMessage = error.message;
-                alert(errorMessage)
-            }
-            )
-    }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const auth = getAuth()
+    await signInWithEmailAndPassword(auth, user.email, user.password).then(
+      (userCredential) => {
+        localStorage.setItem('user', userCredential.user.uid)
+        navigate('/dashboard')
+      }).catch((error) => {
+        const errorMessage = error.message;
+        alert(errorMessage)
+      }
+      )
+  }
 
   return (
     <div>
@@ -35,14 +36,14 @@ export default function LogIn() {
                       type="Email"
                       placeholder="Email ID"
                       class="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
-                                            required
-                                            onChange={
-                                                (e) => {
-                                                    setUser({
-                                                        ...user, email: e.target.value
-                                                    })
-                                                }
-                                            }
+                      required
+                      onChange={
+                        (e) => {
+                          setUser({
+                            ...user, email: e.target.value
+                          })
+                        }
+                      }
                     />
                   </div>
                   <div class="mb-6">
@@ -50,8 +51,8 @@ export default function LogIn() {
                       type="password"
                       placeholder="Password"
                       class="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
-                                            required
-                                            onChange={(e) => { setUser({ ...user, password: e.target.value }) }}
+                      required
+                      onChange={(e) => { setUser({ ...user, password: e.target.value }) }}
                     />
                   </div>
                   <div class="mb-10">

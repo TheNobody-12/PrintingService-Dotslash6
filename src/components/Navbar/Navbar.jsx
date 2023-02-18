@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { UserContext } from '../../context/user.context'
 import { signOutAuth } from '../../utils/firebase'
 
 export default function Navbar() {
     const { currentUser } = useContext(UserContext)
+    const navigate = useNavigate()
     return (
         <div>
             <header class="text-white body-font bg-blue-500">
@@ -16,10 +17,6 @@ export default function Navbar() {
                         href="#"
                     >
                         <img src={logo} alt="" width="100" />
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
-                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                        </svg>
-                        <span class="ml-3 text-xl text-white">Printf</span>
                     </Link>
                     <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center text-xxl">
                         <Link to="/" class="mr-5 hover:text-gray-900 cursor-pointer">Home</Link>
@@ -41,6 +38,8 @@ export default function Navbar() {
                             <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 text-black"
                                 onClick={() => {
                                     signOutAuth()
+                                    localStorage.removeItem('user')
+                                    navigate('/login')
                                 }
                                 }
                             >LogOut
