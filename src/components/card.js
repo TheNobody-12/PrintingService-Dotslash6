@@ -1,45 +1,39 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-function card() {
+function Card({ shop }) {
   return (
-    <div>
-    <section class="card-area">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <div class="single-card card-style-two">
-              <div class="row no-gutters align-items-center">
-                <div class="col-sm-6">
-                  <div class="card-image">
-                    <img src="../assets/images/card/card-2.jpg" alt="Image" />
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="card-content">
-                    <h4 class="card-title">
-                      <a href="javascript:void(0)">Item title is here</a>
-                    </h4>
-                    <p class="text">
-                      Short description for the ones who look for something new
-                    </p>
-
-                    <div class="card-btn rounded-buttons">
-                      <a
-                        class="btn primary-btn rounded-full"
-                        href="javascript:void(0)"
-                      >
-                        GET STARTED
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div class="w-full px-4 md:w-1/2 xl:w-1/3">
+      <div class="mb-10 overflow-hidden rounded-lg bg-white">
+        <img
+          src="https://cdn.tailgrids.com/2.0/image/application/images/cards/card-01/image-01.jpg"
+          alt="image"
+          class="w-full"
+        />
+        <div class="p-8 text-center sm:p-9 md:p-7 xl:p-9">
+          <h3>
+            <a
+              href="javascript:void(0)"
+              class="text-dark hover:text-primary mb-4 block text-xl font-semibold sm:text-[22px] md:text-xl lg:text-[22px] xl:text-xl 2xl:text-[22px]"
+            >
+              {shop.name}
+            </a>
+          </h3>
+          <p class="text-body-color mb-7 text-base leading-relaxed">
+            {shop.address}
+          </p>
+          <p class="text-body-color mb-7 text-base leading-relaxed">
+            {shop.phoneNo}
+          </p>
+          <Link
+            to={`/shop/${shop.Id}`}
+            class="text-body-color hover:border-primary hover:bg-blue-600 hover:bg-primary inline-block rounded-full border border-[#E5E7EB] py-2 px-7 text-base font-medium transition hover:text-white cursor-pointer"
+          >
+            Print Your files
+          </Link>
         </div>
       </div>
-    </section>
     </div>
   )
 }
-export default card
+export default Card

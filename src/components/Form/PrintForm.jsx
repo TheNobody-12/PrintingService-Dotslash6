@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { set, ref } from "firebase/database";
 import { storage, db } from "../../utils/firebase";
 import {
@@ -7,27 +7,19 @@ import {
     getDownloadURL,
 } from "firebase/storage";
 import { useParams } from 'react-router-dom';
+import LoadingBar from "react-top-loading-bar";
+
 
 export default function PrintForm() {
     const { id } = useParams();
 
-    useEffect(() => {
-        loadShopData();
-    }, [])
-
-    const loadShopData = () => {
-
-    }
-
-
     const [files, setFiles] = useState()
-    const [fileLinks, setFileLinks] = useState();
     const [order, setOrder] = useState({
         shop_Id: id,
         isPaid: false
     })
     const [page, setPage] = useState()
-    console.log(page)
+    const [progress, setProgress] = useState(0);
 
     const countPrice = () => {
         const printPage = page.to - page.from + 1
@@ -46,6 +38,7 @@ export default function PrintForm() {
         }
         return price
     }
+
     const uploadToStorage = (file) => {
         const imageStoreRef = storeRef(
             storage,
@@ -58,7 +51,7 @@ export default function PrintForm() {
             (snapshot) => {
                 const progress =
                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                // setProgress(progress);
+                setProgress(progress);
             },
             (error) => {
                 alert(error.message);
@@ -66,17 +59,17 @@ export default function PrintForm() {
             () => {
                 getDownloadURL(uploadTask.snapshot.ref)
                     .then((downloadURL) => {
-                        console.log("Setting link");
-                        setOrder({ ...order, file: downloadURL })
+                        order.file = downloadURL
                     })
                     .finally(() => {
-                        console.log(order)
                         const price = countPrice();
                         order.price = price
                         order.print_page_range = page.from + ' - ' + page.to
+                        order.createdAt = new Date().toISOString()
                         var doc_id = "id" + Math.random().toString(16).slice(2);
+                        console.log(order)
                         set(ref(db, `orders/${id}/${doc_id}`), order).then(() =>
-                            alert("Event added successfully")
+                            alert("Order Placed successfully")
                         ).catch((err) => {
                             console.log(err)
                         });
@@ -97,7 +90,13 @@ export default function PrintForm() {
 
     return (
         <div>
-            <section className="bg-[#F4F7FF] py-20 lg:py-[120px]">
+            <LoadingBar
+                color="#f11946"
+                height={10}
+                progress={progress}
+                onLoaderFinished={() => setProgress(0)}
+            />
+            <section className="m-4">
                 <div className="container mx-auto">
                     <div className="-mx-4 flex flex-wrap">
                         <div className="w-full px-4">
@@ -163,7 +162,7 @@ export default function PrintForm() {
                                                 id='both'
                                                 onChange={(e) => setOrder({ ...order, choice: e.target.value })}
                                             />
-                                            <label htmlFor="both"> Both side</label>
+                                            <label htmlFor="both">Both side</label>
                                         </span>
                                         <span className="m-2">
                                             <input
