@@ -16,7 +16,7 @@ export default function Shops() {
 
     const loadShops = async () => {
         const dbRef = ref(getDatabase());
-        
+
         get(child(dbRef, `shops/`))
             .then((snapshot) => {
                 if (snapshot.exists()) {
@@ -37,15 +37,26 @@ export default function Shops() {
 
     return (
         <>
+            <h2 class="text-center mb-4 mt-8 text-4xl tracking-tight font-extrabold text-gray-900 dark:">Available stores</h2>
             {loading == false ? (
-                <div id="shops" className="flex flex-wrap m-6">
-                    {shops.map((shop) => (
-                        <Card shop={shop} />
-                    ))}
+                <div id="shops" className="flex flex-wrap m-6 justify-center">
+                    {shops.map((shop) => {
+                        return <>
+                            <Card shop={shop} />
+                        </>
+                    })}
                 </div>
             ) : (
                 <Loader />
             )}
+            {
+                loading == false && shops.length == 0 ? (
+                    <div className="flex justify-center">
+                        <h1 className="text-2xl font-bold">No Shops Found</h1>
+                    </div>
+                ) : null
+            }
         </>
+
     );
 }

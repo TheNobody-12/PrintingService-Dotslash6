@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getDatabase, ref, child, get } from "firebase/database";
 import OrderItem from './OrderItem';
+import { GetSortOrder } from '../../utils/firebase';
 
 function Orders({ shopId }) {
     const [loading, setLoading] = useState(true);
@@ -29,7 +30,9 @@ function Orders({ shopId }) {
                         }
                     })
                     // setOrders(data);
+                    orders.sort(GetSortOrder('createdAt'))
                     setOrders(orders);
+                    completedOrders.sort(GetSortOrder('createdAt'))
                     setCompletedOrders(completedOrders);
                     setLoading(false);
                 } else {

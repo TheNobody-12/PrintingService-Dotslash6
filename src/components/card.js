@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom'
 
 function Card({ shop }) {
   return (
-    <div class="w-full px-4 md:w-1/2 xl:w-1/3">
-      <div class="mb-10 overflow-hidden rounded-lg bg-white">
+    <div class="w-full px-4 md:w-1/2 xl:w-1/4 custom_card m-3">
+      <div class="mb-10 overflow-hidden rounded-lg bg-white flex justify-center flex-col">
         <img
-          src="https://cdn.tailgrids.com/2.0/image/application/images/cards/card-01/image-01.jpg"
+          src={shop.img}
           alt="image"
-          class="w-full"
+          class="w-full h-64 object-cover object-center"
         />
-        <div class="p-8 text-center sm:p-9 md:p-7 xl:p-9">
+        <div class="text-center sm:p-9 xl:p-9">
           <h3>
             <a
               href="javascript:void(0)"

@@ -16,7 +16,6 @@ function App() {
 					{/* <img src={spatula} alt='Spatula' /> */}
 					<button onClick={() => setShowItem(true)}>Pay Now</button>
 					<button onClick={() => setShowItem(true)}>Pay at Desk</button>
-
 				</>
 			)}
 		</div>

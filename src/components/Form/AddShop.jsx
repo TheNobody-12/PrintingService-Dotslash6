@@ -1,12 +1,20 @@
 import React, { useState } from 'react'
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 import { set, ref } from "firebase/database";
 import { storage, db } from "../../utils/firebase";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-
+import {
+    ref as storeRef,
+    uploadBytesResumable,
+    getDownloadURL,
+} from "firebase/storage";
+import LoadingBar from "react-top-loading-bar";
 
 
 export default function AddShop() {
     const [authCred, setAuthCred] = useState()
+    const [files, setFiles] = useState()
+    const [progress, setProgress] = useState(0);
     const [shop, setShop] = useState({
         name: '',
         address: '',
@@ -14,14 +22,18 @@ export default function AddShop() {
         img: '',
         phoneNo: ''
     })
+    const navigate = useNavigate()
 
     const createAuthUserWithEmailAndPassword = async (email, password) => {
         const auth = getAuth();
         if (!email || !password) return
         await createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
             shop.Id = userCredential.user.uid;
-            set(ref(db, `shops/${shop.Id}`), shop).then(() =>
+            set(ref(db, `shops/${shop.Id}`), shop).then(() => {
+
                 alert("Your shop has been added successfully")
+                navigate('/login')
+            }
             ).catch((err) => {
                 console.log(err)
             });
@@ -31,13 +43,48 @@ export default function AddShop() {
         });
     }
 
+    const uploadToStorage = (file) => {
+        const imageStoreRef = storeRef(
+            storage,
+            `files/${file.name}_${Math.random().toString(16).slice(2)}`
+        );
+
+        const uploadTask = uploadBytesResumable(imageStoreRef, file);
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                const progress =
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                setProgress(progress);
+            },
+            (error) => {
+                alert(error.message);
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref)
+                    .then((downloadURL) => {
+                        shop.img = downloadURL
+                    })
+                    .finally(() => {
+                        createAuthUserWithEmailAndPassword(authCred.email, authCred.password)
+                    });
+            }
+        );
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        createAuthUserWithEmailAndPassword(authCred.email, authCred.password)
+        uploadToStorage(files[0])
     }
 
     return (
         <div>
+            <LoadingBar
+                color="#f11946"
+                height={10}
+                progress={progress}
+                onLoaderFinished={() => setProgress(0)}
+            />
             <section className="m-4">
                 <div className="container mx-auto">
                     <div className="-mx-4 flex flex-wrap">
@@ -108,6 +155,21 @@ export default function AddShop() {
                                             onChange={(e) => setShop({
                                                 ...shop, phoneNo: e.target.value
                                             })}
+                                        />
+                                    </div>
+
+                                    <div className="mb-6">
+                                        <div className="mb-2">
+                                            <label htmlFor="files" >Choose picture representing your shop</label>
+                                        </div>
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            name="files"
+                                            required
+                                            id="files"
+                                            placeholder="Select files to be printed"
+                                            onChange={(e) => setFiles(e.target.files)}
                                         />
                                     </div>
 

@@ -9,7 +9,7 @@ export default function Navbar() {
     const navigate = useNavigate()
     return (
         <div>
-            <header class="text-white body-font bg-blue-500">
+            <header class=" body-font  bg-[#ffffff]">
                 <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
                     {
                         currentUser ?
