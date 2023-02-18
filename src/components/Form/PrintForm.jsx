@@ -12,11 +12,11 @@ import LoadingBar from "react-top-loading-bar";
 
 export default function PrintForm() {
     const { id } = useParams();
-
     const [files, setFiles] = useState()
     const [order, setOrder] = useState({
         shop_Id: id,
-        isPaid: false
+        is_paid: false,
+        is_printed: false,
     })
     const [page, setPage] = useState()
     const [progress, setProgress] = useState(0);
@@ -67,6 +67,7 @@ export default function PrintForm() {
                         order.print_page_range = page.from + ' - ' + page.to
                         order.createdAt = new Date().toISOString()
                         var doc_id = "id" + Math.random().toString(16).slice(2);
+                        order.id = doc_id
                         console.log(order)
                         set(ref(db, `orders/${id}/${doc_id}`), order).then(() =>
                             alert("Order Placed successfully")
@@ -81,7 +82,14 @@ export default function PrintForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (files == null) alert("Please select image");
+        if (files == null) {
+            alert("Please select image");
+            return
+        }
+        if(page.from > page.to) {
+            alert("Please enter valid page range") 
+            return
+        }
         let temp = Object.values(files)
         temp.forEach(file => {
             uploadToStorage(file)
@@ -99,9 +107,9 @@ export default function PrintForm() {
             <section className="m-4">
                 <div className="container mx-auto">
                     <div className="-mx-4 flex flex-wrap">
-                        <div className="w-full px-4">
+                        <div className="w-full px-4 ">
                             <div
-                                className="relative mx-auto max-w-[525px] overflow-hidden rounded-lg bg-white py-16 px-10  sm:px-12 md:px-[60px]"
+                                className="relative mx-auto max-w-[525px] overflow-hidden rounded-lg bg-white py-16 px-10  sm:px-12 md:px-[60px] custom_card"
                             >
                                 <form method='post' onSubmit={(e) => handleSubmit(e)}>
                                     <div className="mb-6">
@@ -123,7 +131,7 @@ export default function PrintForm() {
                                         />
                                     </div>
                                     <div className="mb-6">
-                                        <p className='text-base'> Enter print page range  here eg. 1 - 9</p>
+                                        <p className=''> Enter print page range  here eg. 1 - 9</p>
                                         <br />
                                         <input
                                             type="number"
@@ -139,7 +147,9 @@ export default function PrintForm() {
                                         />
                                     </div>
                                     <div className="mb-6">
-                                        <label htmlFor="files">Choose files to print</label>
+                                        <div className="mb-2">
+                                            <label htmlFor="files" >Choose files to print</label>
+                                        </div>
                                         <input
                                             type="file"
                                             accept="application/pdf"
@@ -152,7 +162,7 @@ export default function PrintForm() {
                                         />
                                     </div>
                                     <div className="mb-6">
-                                        <p>One side or Both side?</p>
+                                        <p className='mb-2'>One side or Both side?</p>
                                         <span className="m-2">
                                             <input
                                                 type='radio'
@@ -177,7 +187,7 @@ export default function PrintForm() {
                                     </div>
 
                                     <div className="mb-6">
-                                        <p>Colored print or just black-white</p>
+                                        <p className='mb-2'>Colored print or just black-white</p>
                                         <span className="m-2">
                                             <input
                                                 type='radio'
@@ -202,7 +212,7 @@ export default function PrintForm() {
                                     </div>
                                     <div className="mb-10">
                                         <button type='submit' className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                            Submit
+                                            Confirm Order
                                         </button>
                                     </div>
                                 </form>

@@ -1,6 +1,7 @@
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import logo from '../../assets/logo.png'
 
 export default function LogIn() {
   const [user, setUser] = useState()
@@ -27,8 +28,8 @@ export default function LogIn() {
           <div class="flex flex-wrap">
             <div class="w-full">
               <div class="relative mx-auto max-w-[525px] overflow-hidden rounded-lg bg-white py-16 text-center sm:px-12 md:px-[60px]">
-                <div class="mb-10 text-center md:mb-16">
-                  <img src="src\assets\logo.png" alt="logo" />
+                <div class="mb-10 flex justify-center md:mb-16">
+                  <img src={logo} alt="logo" width={200} />
                 </div>
                 <form method='post' onSubmit={(e) => handleSubmit(e)}>
                   <div class="mb-6">
@@ -65,8 +66,10 @@ export default function LogIn() {
                 </form>
 
                 <a
-                  href="javascript:void(0)"
-                  class="mb-2 inline-block text-base text-[#adadad] hover:text-primary hover:underline"
+                  class="mb-2 inline-block text-base text-[#adadad] hover:text-primary hover:underline cursor-pointer"
+                  onClick={() => {
+                    alert('Contact us at admin@printf.in')
+                  }}
                 >
                   Forget Password?
                 </a>

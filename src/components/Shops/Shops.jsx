@@ -3,35 +3,10 @@ import Card from "../Card";
 
 import { getDatabase, ref, child, get } from "firebase/database";
 import Loader from "../Loader";
+import { useNavigate } from "react-router-dom";
 
 export default function Shops() {
     const [loading, setLoading] = useState(true);
-    // const shops = [
-    //     {
-    //         id: '1234',
-    //         name: 'PDPU Xerox Shop',
-    //         address: "Ye mera address hai",
-    //         img: ""
-    //     },
-    //     {
-    //         id: '6458',
-    //         name: 'PDPU Xerox Shop',
-    //         address: "Ye mera address hai",
-    //         img: ""
-    //     },
-    //     {
-    //         id: '1234',
-    //         name: 'PDPU Xerox Shop',
-    //         address: "Ye mera address hai",
-    //         img: ""
-    //     },
-    //     {
-    //         id: '1234',
-    //         name: 'PDPU Xerox Shop',
-    //         address: "Ye mera address hai",
-    //         img: ""
-    //     }
-    // ]
 
     const [shops, setShops] = useState([]);
 

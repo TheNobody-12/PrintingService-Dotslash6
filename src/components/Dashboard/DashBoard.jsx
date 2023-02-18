@@ -40,7 +40,7 @@ function DashBoard() {
                 <>
                     <div id="shops" className="flex flex-wrap m-6">
                         <div class="w-full px-4 md:w-full">
-                            <div class="mb-10 overflow-hidden rounded-lg bg-white">
+                            <div class="overflow-hidden rounded-lg bg-white custom_card">
                                 <div class="p-8 text-center sm:p-9 md:p-7 xl:p-9">
                                     <h3>
                                         <a
