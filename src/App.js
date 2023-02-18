@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Card from './components/card';
 import Navbar from './components/navbar';
@@ -7,6 +6,8 @@ import './components/starter.css'
 import './components/card-02.css'
 import './components/navbar-05.css'
 import './components/lineicons.css'
+import { Route, Routes } from 'react-router-dom';
+import PrintForm from './components/Form/PrintForm';
 
 function App() {
   return (
