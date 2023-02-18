@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 import { getStorage } from "firebase/storage";
 import { getDatabase } from "firebase/database";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
@@ -16,7 +17,15 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
+const auth = getAuth()
 const storage = getStorage(app);
 const db = getDatabase(app);
 export { storage, db };
+
+export const signOutAuth = () => {
+    return signOut(auth)
+}
+
+export const onAuthStateChangedListner = (callback) => {
+    return onAuthStateChanged(auth, callback)
+}

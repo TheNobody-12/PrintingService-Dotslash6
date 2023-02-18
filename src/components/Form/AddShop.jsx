@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import { set, ref } from "firebase/database";
 import { storage, db } from "../../utils/firebase";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+
+
 
 export default function AddShop() {
+    const [authCred, setAuthCred] = useState()
     const [shop, setShop] = useState({
         name: '',
         address: '',
@@ -11,15 +15,25 @@ export default function AddShop() {
         phoneNo: ''
     })
 
+    const createAuthUserWithEmailAndPassword = async (email, password) => {
+        const auth = getAuth();
+        if (!email || !password) return
+        await createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+            shop.Id = userCredential.user.uid;
+            set(ref(db, `shops/${shop.Id}`), shop).then(() =>
+                alert("Your shop has been added successfully")
+            ).catch((err) => {
+                console.log(err)
+            });
+        }).catch((error) => {
+            const errorMessage = error.message;
+            alert(errorMessage)
+        });
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        var shop_id = "id" + Math.random().toString(16).slice(2);
-        shop.Id = shop_id;
-        set(ref(db, `shops/${shop_id}`), shop).then(() =>
-            alert("Your shop has been added successfully")
-        ).catch((err) => {
-            console.log(err)
-        });
+        createAuthUserWithEmailAndPassword(authCred.email, authCred.password)
     }
 
     return (
@@ -46,12 +60,32 @@ export default function AddShop() {
                                     <div className="mb-6">
                                         <input
                                             type="email"
-                                            placeholder="Your Email (You will get credentials on this email)"
+                                            placeholder="Your Email"
                                             required
                                             className="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
-                                            onChange={(e) => setShop({
-                                                ...shop, email: e.target.value
-                                            })}
+                                            onChange={(e) => {
+                                                setShop({
+                                                    ...shop, email: e.target.value
+                                                })
+                                                setAuthCred(
+                                                    {
+                                                        ...authCred, email: e.target.value
+                                                    }
+                                                )
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="mb-6">
+                                        <input
+                                            type="password"
+                                            placeholder="Password"
+                                            required
+                                            className="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
+                                            onChange={(e) =>
+                                                setAuthCred({
+                                                    ...authCred, password: e.target.value
+                                                })
+                                            }
                                         />
                                     </div>
                                     <div className="mb-6">
