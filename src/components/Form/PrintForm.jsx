@@ -66,7 +66,7 @@ export default function PrintForm() {
                         var doc_id = "id" + Math.random().toString(16).slice(2);
                         order.id = doc_id
                         set(ref(db, `orders/${id}/${doc_id}`), order).then(() =>
-                            alert("Order Placed successfully")
+                            alert("Order Placed successfully, You wll get sms once your print is ready")
                         ).catch((err) => {
                             console.log(err)
                         });
@@ -81,8 +81,8 @@ export default function PrintForm() {
             alert("Please select image");
             return
         }
-        if(page.from > page.to) {
-            alert("Please enter valid page range") 
+        if (page.from > page.to) {
+            alert("Please enter valid page range")
             return
         }
         let temp = Object.values(files)
