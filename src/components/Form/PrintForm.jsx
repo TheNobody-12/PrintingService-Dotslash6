@@ -23,10 +23,13 @@ export default function PrintForm() {
 
     const countPrice = () => {
         const printPage = page.to - page.from + 1
+        console.log(printPage)
         let price = 0;
         if (order.type == 'color') {
+            console.log("color xerox ke pese")
             price = 7 * printPage
         } else {
+            console.log("black and white ke pese")
             if (order.choice == 'one-side') {
                 price = 2 * printPage
             } else {
@@ -65,6 +68,7 @@ export default function PrintForm() {
                         order.createdAt = new Date().toISOString()
                         var doc_id = "id" + Math.random().toString(16).slice(2);
                         order.id = doc_id
+                        console.log(order)
                         set(ref(db, `orders/${id}/${doc_id}`), order).then(() =>
                             alert("Order Placed successfully, You wll get sms once your print is ready")
                         ).catch((err) => {
@@ -73,6 +77,7 @@ export default function PrintForm() {
                     });
             }
         );
+        console.log("price", countPrice());
     }
 
     const handleSubmit = (e) => {
