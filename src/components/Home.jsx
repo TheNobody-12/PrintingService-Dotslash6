@@ -1,4 +1,5 @@
 import React from 'react'
+import AboutUs from './AboutUs'
 import Pricing from './Pricing/Pricing'
 import Shops from './Shops/Shops'
 
@@ -7,6 +8,7 @@ function Home() {
     <div>
       <Pricing/>
       <Shops/>
+      <AboutUs/>
     </div>
   )
 }

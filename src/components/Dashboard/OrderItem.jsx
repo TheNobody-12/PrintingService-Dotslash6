@@ -3,17 +3,44 @@ import React from 'react'
 import { db } from '../../utils/firebase';
 
 function OrderItem({ orderItem }) {
-    const markAsPrinted = () => {
+    const host = 'https://twillo-api.vercel.app'
+
+    const sendSms = async () => {
+        try {
+            const message = `Hello ${orderItem.name} \nYour files ${orderItem.choice} ${orderItem.type} are printed, ${!orderItem.is_paid ? 'You need to pay Rs. ' + orderItem.price + ' At desk ' : ''}`
+
+            const response = await fetch(`${host}/send`, {
+                mode: 'no-cors',
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ "Message": message, 'Number': orderItem.contactNo }),
+            }).catch((err) => {
+                console.log(err)
+            }).then((res) => {
+                alert("Successfully marked as printed")
+                console.log(res)
+            });
+            // console.log(await response.json())
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    const markAsPrinted = async (e) => {
+        e.preventDefault();
         orderItem.is_printed = true;
         orderItem.is_paid = true;
-        update(ref(db, `orders/${orderItem.shop_Id}/${orderItem.id}`), orderItem).then(() =>
+        update(ref(db, `orders/${orderItem.shop_Id}/${orderItem.id}`), orderItem).then(() => {
             alert("Successfully marked as printed")
-        ).catch((err) => {
+            sendSms();
+        }).catch((err) => {
             console.log(err)
         });
     }
 
-    console.log(orderItem)
     return (
         <tr class={`bg-white border ${!orderItem.is_paid ? 'text-red-600' : ''}`}>
             <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
@@ -42,8 +69,8 @@ function OrderItem({ orderItem }) {
                     onClick={(e) => {
                         const sure = window.confirm("Are you sure you want to mark this order as printed?")
                         if (sure) {
-                            markAsPrinted();
-                            window.location.reload();
+                            markAsPrinted(e);
+                            // window.location.reload();
                         }
 
                     }}>{

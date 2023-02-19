@@ -19,7 +19,6 @@ function Orders({ shopId }) {
             .then((snapshot) => {
                 if (snapshot.exists()) {
                     const data = Object.values(snapshot.val());
-                    console.log(data);
                     const orders = [];
                     const completedOrders = [];
                     data.forEach((order) => {
@@ -45,7 +44,6 @@ function Orders({ shopId }) {
             });
     }
 
-    console.log(orders.length);
     return (<>
         <p className='text-center mb-4 text-xl font-bold'>Pending Orders</p>
         <div className='flex justify-center w-full'>

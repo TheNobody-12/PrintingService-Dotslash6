@@ -21,10 +21,8 @@ export default function Shops() {
             .then((snapshot) => {
                 if (snapshot.exists()) {
                     const data = Object.values(snapshot.val());
-                    console.log(data);
                     setShops(data);
                     setLoading(false);
-                    console.log(shops);
                 } else {
                     console.log("No data available");
                     setLoading(false);
