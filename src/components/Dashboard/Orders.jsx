@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getDatabase, ref, child, get } from "firebase/database";
+import { getDatabase, ref, child, get, onValue } from "firebase/database";
 import OrderItem from './OrderItem';
 import { GetSortOrder } from '../../utils/firebase';
 
@@ -10,7 +10,17 @@ function Orders({ shopId }) {
 
     useEffect(() => {
         loadOrders();
+        loadRealTime();
     }, [])
+
+    const loadRealTime = () => {
+        const db = getDatabase();
+        const starCountRef = ref(db, 'orders/' + shopId + '/is_printed');
+        onValue(starCountRef, (snapshot) => {
+            const data = snapshot.val();
+            console.log(data);
+        });
+    }
 
     const loadOrders = async () => {
         const dbRef = ref(getDatabase());

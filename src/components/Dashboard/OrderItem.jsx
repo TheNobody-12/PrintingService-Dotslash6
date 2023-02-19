@@ -4,13 +4,14 @@ import { db } from '../../utils/firebase';
 
 function OrderItem({ orderItem }) {
     const host = 'https://twillo-api.vercel.app'
+    // const host = 'http://localhost:8000'
 
     const sendSms = async () => {
         try {
             const message = `Hello ${orderItem.name} \nYour files ${orderItem.choice} ${orderItem.type} are printed, ${!orderItem.is_paid ? 'You need to pay Rs. ' + orderItem.price + ' At desk ' : ''}`
 
             const response = await fetch(`${host}/send`, {
-                mode: 'no-cors',
+                // mode: 'no-cors',
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -31,13 +32,13 @@ function OrderItem({ orderItem }) {
 
     const markAsPrinted = async (e) => {
         e.preventDefault();
+        await sendSms();
         orderItem.is_printed = true;
         orderItem.is_paid = true;
         update(ref(db, `orders/${orderItem.shop_Id}/${orderItem.id}`), orderItem).then(() => {
-            alert("Successfully marked as printed")
-            sendSms();
         }).catch((err) => {
             console.log(err)
+        }).finally(() => {
         });
     }
 
