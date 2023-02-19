@@ -70,7 +70,7 @@ export default function PrintForm() {
                         order.id = doc_id
                         console.log(order)
                         set(ref(db, `orders/${id}/${doc_id}`), order).then(() =>
-                            alert("Order Placed successfully, You wll get sms once your print is ready")
+                            alert("Order Placed successfully, You wll get sms once your print is ready, You need to pay Rs. " + countPrice() + " at the shop")
                         ).catch((err) => {
                             console.log(err)
                         });

@@ -20,7 +20,8 @@ function OrderItem({ orderItem }) {
             }).catch((err) => {
                 console.log(err)
             }).then((res) => {
-                alert("Successfully marked as printed")
+                if (res.ok)
+                    alert("Successfully marked as printed")
                 console.log(res)
             });
             // console.log(await response.json())
@@ -39,6 +40,7 @@ function OrderItem({ orderItem }) {
         }).catch((err) => {
             console.log(err)
         }).finally(() => {
+            // window.location.reload();
         });
     }
 
