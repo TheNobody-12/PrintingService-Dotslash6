@@ -23,7 +23,7 @@ export default function AboutUs() {
         <div className="bg-white py-24 sm:py-32">
             <div className="mx-auto grid max-w-7xl gap-y-20 gap-x-8 px-6 lg:px-8 xl:grid-cols-3">
                 <div className="max-w-2xl justify-center">
-                    <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Meet our leadership</h2>
+                    <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Meet our Developers</h2>
                     <p className="mt-6 text-2xl leading-8 text-black">
                         Printing your ideas into reality , one sheet at a time.
                     </p>

@@ -7,6 +7,7 @@ import AddShop from "./components/Form/AddShop";
 import LogIn from "./components/Form/LogIn";
 import DashBoard from "./components/Dashboard/DashBoard";
 import Home from "./components/Home";
+import Error404 from "./components/404/Error404";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
         <Route exact path="/" element={<Home />} >
         </Route>
         <Route exact path="add-shop" element={<AddShop />} />
-        <Route exact path="*" element={<h1>404 Not Found</h1>} />
+        <Route exact path="*" element={<Error404/>} />
         <Route exact path="/login" element={<LogIn />} />
         <Route exact path='/dashboard' element={<DashBoard />} />
       </Routes>
