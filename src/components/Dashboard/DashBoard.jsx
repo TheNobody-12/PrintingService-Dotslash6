@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { getDatabase, ref, child, get } from "firebase/database";
 import Loader from "../Loader";
-import Card from '../Card';
+// F:\IMP DOCUMENT\Dotslash\PrintingService-Dotslash6\src\components\card.js
+// import Card from "../card";
 import Orders from './Orders';
 
 function DashBoard() {

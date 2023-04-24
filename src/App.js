@@ -2,7 +2,7 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import PrintForm from "./components/Form/PrintForm";
 import Navbar from "./components/Navbar/Navbar";
-import Shops from "./components/Shops/Shops";
+// import Shops from "./components/Shops/Shops";
 import AddShop from "./components/Form/AddShop";
 import LogIn from "./components/Form/LogIn";
 import DashBoard from "./components/Dashboard/DashBoard";

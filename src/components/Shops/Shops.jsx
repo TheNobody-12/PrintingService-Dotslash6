@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Card from "../Card";
+import Card from "../card";
 
 import { getDatabase, ref, child, get } from "firebase/database";
 import Loader from "../Loader";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 export default function Shops() {
     const [loading, setLoading] = useState(true);

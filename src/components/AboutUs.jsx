@@ -1,20 +1,26 @@
 import sarthak from '../assets/sarthak.jpg'
-import kaushal from '../assets/kaushal.jpg'
-import vipul from '../assets/vipul.jpg'
+// import kaushal from '../assets/kaushal.jpg'
+// import vipul from '../assets/vipul.jpg'
+import harsh from '../assets/harsh1.jpg'
+
 const people = [
     {
         name: 'Sarthak Kapaliya',
         role: 'Techitron SDE',
         imageUrl: sarthak   },
-    {
-        name: 'Kaushal Soni',
-        role: 'Techitron Full Stack Developer',
-        imageUrl:kaushal,
-    },
-    {
-        name: 'Vipul Chaudhary',
-        role: 'Techitron Full stack developer',
-        imageUrl: vipul,    },
+        {
+        name: 'Harsh Joshi',
+        role: 'Techitron SDE',
+        imageUrl: harsh   },
+    // {
+    //     name: 'Kaushal Soni',
+    //     role: 'Techitron Full Stack Developer',
+    //     imageUrl:kaushal,
+    // },
+    // {
+    //     name: 'Vipul Chaudhary',
+    //     role: 'Techitron Full stack developer',
+    //     imageUrl: vipul,    },
     // More people...
 ]
 
