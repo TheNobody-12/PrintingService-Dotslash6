@@ -20,15 +20,15 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyA8O1yMP7SaCaVL9JFTTHONYEtGr83xKg4",
-  authDomain: "printf-website.firebaseapp.com",
-  projectId: "printf-website",
-  storageBucket: "printf-website.appspot.com",
-  messagingSenderId: "647065819645",
-  appId: "1:647065819645:web:ad9ddc5648a700de3a6194",
-  measurementId: "G-ERPWL44LB7"
-};
+// const firebaseConfig = {
+//   apiKey: "AIzaSyA8O1yMP7SaCaVL9JFTTHONYEtGr83xKg4",
+//   authDomain: "printf-website.firebaseapp.com",
+//   projectId: "printf-website",
+//   storageBucket: "printf-website.appspot.com",
+//   messagingSenderId: "647065819645",
+//   appId: "1:647065819645:web:ad9ddc5648a700de3a6194",
+//   measurementId: "G-ERPWL44LB7"
+// };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
